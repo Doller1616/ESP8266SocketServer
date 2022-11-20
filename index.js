@@ -11,6 +11,6 @@ app.get('/', (req, res) => {
     res.send("Hi! Its Working...")
 })
 
-app.listen(POST, (req, res) => {
+app.listen(POST, () => {
   console.log(`Server started on http://localhost:${POST}`)
 })
