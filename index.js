@@ -8,7 +8,7 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.send("Hi! Its Keshav Tomar...")
+    res.send("Hi! Divyansh Kumar")
 })
 
 app.listen(POST, () => {
