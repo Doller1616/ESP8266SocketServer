@@ -9,11 +9,11 @@
 
 
 SocketIOclient socketIO;
-StaticJsonDocument<64> doc;
+
 const int LED_PIN = 5; // Pin D1, NodeMCU 0.9 0r ESP 12.0
 
 void messageHandler(uint8_t* payload) {
-
+  StaticJsonDocument<64> doc;
   DeserializationError error = deserializeJson(doc, payload);
 
   if (error) {
