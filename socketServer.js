@@ -1,19 +1,23 @@
-const { server } = require('./index');
-const io = require('socket.io')(server);
+const socketIO = require('socket.io')
+let io;
 
-// ws://localhost:3000
-io.on('connection', (socket) => { 
-    
-    socket.on('disconnect',()=> {
+function setupSocketServer(server) {
+  io = socketIO(server);
+
+  io.on('connection', (socket) => {
+    console.log('A user connected');
+        socket.on('disconnect',()=> {
         console.log('user disconnected');
     });
 
     socket.on('message', (msg)=> {
       console.log("message: ", msg);
+      io.emit('message', `I got your message "${msg}"`);
     });
 
    timeout();
-});
+  });
+}
 
 function timeout(){
     setTimeout(()=>{
@@ -21,3 +25,6 @@ function timeout(){
         timeout();
     }, 5000);
 }
+
+console.log('Socket Server Started: ws://localhost:3000')
+module.exports = setupSocketServer;
