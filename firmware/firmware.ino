@@ -3,16 +3,16 @@
 #include <WebSocketsClient.h>  // download and install from https://github.com/Links2004/arduinoWebSockets
 #include <SocketIOclient.h>
 
-#define SSID "Your WiFi SSID"
-#define PASSWORD "Your WiFi password"
-#define SERVER "esp-socket-switch.herokuapp.com"  // Server URL (without https://www)
+#define SSID "Oscars"
+#define PASSWORD "abhi1abhi"
+#define SERVER "1d7c-111-223-31-164.ngrok.io"  // Server URL (without https://www)
 
 
 SocketIOclient socketIO;
-
+StaticJsonDocument<64> doc;
+const int LED_PIN = 5; // Pin D1, NodeMCU 0.9 0r ESP 12.0
 
 void messageHandler(uint8_t* payload) {
-  StaticJsonDocument<64> doc;
 
   DeserializationError error = deserializeJson(doc, payload);
 
@@ -23,9 +23,8 @@ void messageHandler(uint8_t* payload) {
 
   String messageKey = doc[0];
   bool value = doc[1];
-
   if (messageKey == "buttonState") {
-    digitalWrite(LED_BUILTIN, value);
+    digitalWrite(LED_PIN, value);
   }
 }
 
@@ -37,7 +36,6 @@ void socketIOEvent(socketIOmessageType_t type, uint8_t* payload, size_t length) 
 
     case sIOtype_CONNECT:
       Serial.printf("Connected to url: %s%s\n", SERVER, payload);
-
       // join default namespace (no auto join in Socket.IO V3)
       socketIO.send(sIOtype_CONNECT, "/");
       break;
@@ -63,7 +61,7 @@ void setupWiFi() {
 
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
 
   Serial.begin(9600);
 
