@@ -3,7 +3,7 @@ const express = require('express');
 const ngrok = require('ngrok');
 const setupSocketServer = require('./socketServer');
 const PORT = 3000;
-const NGROK_AUTH = '25EqWHVn2o4EaXW...'; // abhardwaj1@kloudrac.com (https://ngrok.com)
+const NGROK_AUTH = '25EqWHVn2o4EaXW3udGsyagA8wg_4LwKEPfSdFvT8vy2jUN92'; // abhardwaj1@kloudrac.com (https://ngrok.com)
 
 const app = express();
 const server = http.createServer(app);

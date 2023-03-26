@@ -2,11 +2,13 @@ const socketIO = require('socket.io')
 let io;
 
 function setupSocketServer(server) {
+ try {
   io = socketIO(server);
 
   io.on('connection', (socket) => {
     console.log('A user connected');
-        socket.on('disconnect',()=> {
+
+    socket.on('disconnect',()=> {
         console.log('user disconnected');
     });
 
@@ -17,6 +19,12 @@ function setupSocketServer(server) {
 
    timeout();
   });
+
+   console.log('Local Socket Server : ws://localhost:3000');
+    
+  } catch(e) {
+    console.log(e);
+  }
 }
 
 function timeout(){
@@ -26,5 +34,4 @@ function timeout(){
     }, 5000);
 }
 
-console.log('Socket Server Started: ws://localhost:3000')
 module.exports = setupSocketServer;
